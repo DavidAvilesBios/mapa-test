@@ -1,0 +1,16 @@
+#map { width: 100vw;
+    height: 100vh;}
+
+::ng-deep .weather-button {
+    border-radius: 20px !important;
+    border: none !important;
+}
+
+#refreshButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    z-index: 400;
+    border-radius: 20px !important;
+  }
