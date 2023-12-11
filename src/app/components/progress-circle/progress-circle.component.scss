@@ -1,0 +1,28 @@
+svg {
+  display: inline-flex;
+  vertical-align: bottom;
+  width: 100px;
+  height: 100px;
+}
+
+circle {
+  stroke: rgba(#4ebef2, 0.25);
+  stroke-width: 5px;
+  stroke-dasharray: 0;
+  fill: none;
+}
+
+#meter {
+  stroke-width: 5px;
+  stroke: #2054ff;
+  fill: none;
+  transition: stroke-dashoffset 1s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+  transform-origin: center center;
+  transform: rotate(-90deg) scaleX(-1);
+}
+
+text {
+  fill: #000000;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
