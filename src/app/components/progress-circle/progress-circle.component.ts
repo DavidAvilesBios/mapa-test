@@ -1,7 +1,7 @@
 // progress-circle.component.ts
 
 import { HtmlAstPath } from '@angular/compiler';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-progress-circle',
@@ -9,12 +9,13 @@ import { Component, ElementRef, OnInit } from '@angular/core';
   styleUrls: ['./progress-circle.component.scss']
 })
 export class ProgressCircleComponent implements OnInit {
+  @ViewChild('progressSvg', { static: false }) progressSvg: ElementRef<SVGSVGElement>;
 
   public percentage: number = 75;
+  public svgWidth: number = 30;  // Default width
+  public svgHeight: number = 30; // Default height
 
-  constructor(private elRef: ElementRef) {
-    
-  }
+  constructor(private elRef: ElementRef) {}
 
   ngOnInit(): void {
     const mapElement = this.elRef.nativeElement.querySelector('#meter');
@@ -28,6 +29,13 @@ export class ProgressCircleComponent implements OnInit {
     mapElement.nextElementSibling.textContent = `${value}%`;
   }
 
-  createSVG() {
+  ngAfterViewInit() {
+    // After the view has been initialized, you can access the SVG element
+    const svgElement: SVGSVGElement = this.progressSvg.nativeElement;
+    // Do something with the SVG element, if needed
+  }
+
+  getSvgElement(): SVGSVGElement {
+    return this.progressSvg.nativeElement;
   }
 }

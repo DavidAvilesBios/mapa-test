@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   public windLayer: L.Layer;
   public map: L.Map;
 
-  @ViewChild(ProgressCircleComponent) progressComponent: ProgressCircleComponent;
+  @ViewChild(ProgressCircleComponent , {static: false}) progressComponent: ProgressCircleComponent;
 
   private municipiosLayer: L.Layer;
   private municipiosData: any;
@@ -35,13 +35,25 @@ export class MapComponent implements OnInit {
   ) { }
 
   ngAfterViewInit() {
-    var svgElementBounds = [ [ 26.844722, -108.367778 ], [ 29, -115.367778 ] ];
-    L.svgOverlay(this.progressComponent, svgElementBounds).addTo(this.map);
+    this.ngZone.runOutsideAngular(() => {
+      if (this.progressComponent) {
+        this.initializeMap();
+      } else {
+        console.warn('progressComponent is not available yet.');
+      }
+    });
+  }
+
+  private initializeMap() {
+    const svgElementBounds = [[26.844722, -108.367778], [29, -115.367778]];
+    const svgElement = this.progressComponent.getSvgElement();
+
+    L.svgOverlay(svgElement, svgElementBounds).addTo(this.map);
   }
 
 
   ngOnInit() {
-
+   console.log(this.progressComponent);
     this.map = L.map('map', {
       zoomControl: false,
       attributionControl: false,
