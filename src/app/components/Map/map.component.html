@@ -18,4 +18,6 @@
     </button>
 </div>
 
-<app-progress-circle></app-progress-circle>
+<div *ngFor="let progressComponent of progressComponents">
+    <app-progress-circle [percentage]="progressComponent.percentage"></app-progress-circle>
+</div>
