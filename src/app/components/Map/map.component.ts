@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ComponentFactoryResolver, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ComponentFactoryResolver, ChangeDetectorRef, ElementRef, ApplicationRef, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-openweathermap';
 
@@ -9,6 +9,7 @@ import { ShapeDefaultFormat } from 'src/app/environment/styles/global-styles';
 
 import { ProgressCircleComponent } from '../progress-circle/progress-circle.component';
 import { MapasService } from '../services/mapas.service';
+import { CardInformationComponent } from '../card-component/card-information.component';
 
 @Component({
   selector: 'app-map',
@@ -319,11 +320,10 @@ export class MapComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     private _shapeService: ShapeService,
-    private _popupService: PopupService,
-    private _markerService: MarkerService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
-    private elRef: ElementRef,
+    private inj: Injector,
+    private applicationRef: ApplicationRef,
     private mapasService: MapasService
   ) { }
 
@@ -362,24 +362,52 @@ export class MapComponent implements OnInit {
     }
     setTimeout(() => {
       for (let progressComponent of this.progressComponents){
-        const estado = progressComponent.data;
-        const lat = estado.latitud;
-        const lng = estado.longitud;
-  
-       // Agrega un marcador con información emergente
-        const marker = L.marker([lat, lng])
-        .bindPopup(`<b>${estado.nombreoficial}</b><br>Porcentaje: ${estado.llenano * 100}%`)
-        .addTo(this.map);
-  
-        const svgContainer = document.createElement('div');
-        svgContainer.innerHTML = progressComponent.getSvgElement().outerHTML;
-        marker.bindTooltip(svgContainer, { permanent: true, direction: 'right' });
-  
+        this.agregarMarcadorConPopup(progressComponent);
       }
     }, 1000);
  
     this.cdr.detectChanges();
   });
+  }
+
+  private async agregarMarcadorConPopup(progressComponent: any) {
+    const estado = progressComponent.data;
+    const lat = estado.latitud;
+    const lng = estado.longitud;
+
+    // Crear el componente de información emergente
+    const popupComponentRef = this.crearPopupComponent(estado);
+
+    // Crear un marcador con la información emergente y agregarlo al mapa
+    const marker = L.marker([lat, lng])
+      .bindPopup(popupComponentRef.location.nativeElement, {
+        className: 'custom-popup', // Clase para el popup
+      }) // Usar el elemento nativo del componente
+      .addTo(this.map);
+
+    // Crear un contenedor para el elemento SVG y agregar un tooltip al marcador
+    const svgContainer = document.createElement('div');
+    svgContainer.innerHTML = progressComponent.getSvgElement().outerHTML;
+    marker.bindTooltip(svgContainer, { permanent: true, direction: 'right' });
+  }
+
+  private crearPopupComponent(estado: any) {
+    // Crear el componente y asociarlo con el elemento
+    const popupComponentRef = this.componentFactoryResolver
+      .resolveComponentFactory(CardInformationComponent)
+      .create(this.inj);
+
+    // Asignar propiedades al componente
+    popupComponentRef.instance.properties = estado;
+
+    // Aplicar estilos al componente (en este caso, establecer un tamaño)
+    const popupComponentElement = popupComponentRef.location.nativeElement;
+    popupComponentElement.style.maxWidth = '300px'; // Puedes ajustar el tamaño según tus necesidades
+
+    // Adjuntar el componente al DOM
+    this.applicationRef.attachView(popupComponentRef.hostView);
+
+    return popupComponentRef;
   }
 
 

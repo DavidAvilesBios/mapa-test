@@ -1,0 +1,88 @@
+<ng-container *ngIf="properties">
+  <div class="container content-map p-0 max-popup">
+    <ng-scrollbar style="height: 570px" [visibility]="'hover'">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Nombre</dt>
+                <dd class="contrato">{{ properties?.nombreoficial }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Porcentaje de llenado respecto al NAMO</dt>
+                <dd class="avance">{{ properties?.llenano }}%</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Monto total</dt>
+                <dd class="monto">{{ properties?.montoInversion | currency }} MXN</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Nivel de aguas maximas ordinario NAMO</dt>
+                <dd>Elevación {{ properties?.nameelev }} msnm</dd>
+                <dd>Almacenamiento {{ properties?.namealmac }} msnm</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Objeto</dt>
+                <dd>{{ properties?.objeto }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Nivel de aguas maximas extraordinarias NAMO</dt>
+                <dd>Elevación: {{ properties?.namoelev }}</dd>
+                <dd>Almacenamiento: {{ properties?.namoalmac }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <dl>
+                <dt>Contratista</dt>
+                <dd>{{ properties?.descripcionContratista }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Altura Cortina</dt>
+                <dd>{{ properties?.alturacortina}}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Organismo</dt>
+                <dd>{{ properties?.descripcionDependencia }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Tipo de Contrato</dt>
+                <dd>{{ properties?.descripcionTipoContrato }}</dd>
+              </dl>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <dl>
+                <dt>Elevación de la cortina</dt>
+                <dd>{{ properties?.elevacionactual }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-scrollbar>
+  </div>
+</ng-container>

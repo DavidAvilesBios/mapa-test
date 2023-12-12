@@ -1,0 +1,161 @@
+// Bootstrap overrides
+//
+// Color system
+//
+
+$white: #fff;
+$gray-50: #F7F7F7;
+$gray-100: #f0f0f0;
+$gray-200: #e4e4e4;
+$gray-300: #cecece;
+$gray-400: #a5a6a6;
+$gray-500: #9e9e9e;
+$gray-600: #757575;
+$gray-700: #616161;
+$gray-800: #424242;
+$gray-900: #212121;
+$black: #292930 !default;
+
+$blue: #006fb9 !default;
+$dark-blue: #103151 !default;
+$blue-info: #00a9e0 !default;
+$info: #00a9e0 !default;
+$blue-secondary: #f5fbff !default;
+$indigo: #6610f2 !default;
+$purple: #5548E9 !default;
+$pink: #fff0ef !default;
+$red: #d60d2b !default;
+// $red: #BA4B44 !default;
+// $orange: #AB5C00 !default;
+//$orange: #fe5000 !default;
+$orange: #feb200 !default;
+
+$yellow: #FFDD35 !default;
+// $green:                           #6CC24A !default;
+//$green: #2E8241 !default;
+// $green: #50b826 !default;
+
+$teal: #e5ffeb !default;
+$cyan: #eaf7ff;
+
+// $wine: #952431;
+$wine: #691c32;
+$wine-800: #952431;
+//$wine-500: #9D2449;
+$wine-500: #9c182f;
+$wine-100: #C97B7C;
+$wine-50: #e7d7d7;
+// $gold: #B18147;
+$gold: #bc955c;
+$gold-800: #BA8C56;
+$gold-500: #CAA376;
+$gold-100: #DABB99;
+$gold-50: #ece5dd;
+$grey: #221F1C;
+$grey-800: #302D2A;
+$grey-500: #5D5F64;
+$grey-100: #7B7D81;
+// $green: #3D5C4F;
+$green: #235b4e;
+$gris-oxford:#393d42;
+$gris: #636569;
+$turquesa: #00a19b;
+
+$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  // cyan:                           $cyan,
+  cyan: $blue-info,
+  white: $white,
+  gray: $gray-600,
+  gray-dark: $gray-800,
+  blue-dark: $dark-blue,
+  wine: $wine,
+  gris-oxford: $gris-oxford
+);
+
+$theme-colors: (
+  primary: $wine,
+  secondary: $blue-secondary,
+  success: $green,
+  info: $blue-info,
+  warning: $orange,
+  danger: $red,
+  light: $gray-200,
+  dark: $dark-blue,
+  blue: $blue,
+  gold-100: $gold-100,
+  gold-500: $gold-500,
+  wine-100: $wine-100,
+  wine: $wine,
+  gold: $gold-800,
+  gris-oxford: $gris-oxford
+);
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-transitions: true;
+$enable-rounded: true;
+$enable-flex: true;
+$border-radius: 5px;
+// Body
+//
+// Settings for the `<body>` element.
+
+// $body-bg:                         #e4e5e6;
+$body-bg: $gray-50;
+$body-color: $gray-900 !default;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// $font-size-base:                  0.875rem;
+$font-size-base: 1rem;
+
+// Breadcrumbs
+
+$breadcrumb-bg: #fff;
+$breadcrumb-margin-bottom: 1.5rem;
+
+// Cards
+
+$card-border-color: $gray-300;
+$card-cap-bg: $gray-100;
+
+// Dropdowns
+
+$dropdown-padding-y: 0;
+$dropdown-border-color: $gray-300;
+$dropdown-divider-bg: $gray-100;
+
+// Buttons
+
+$btn-secondary-border: $gray-300;
+
+// Progress bars
+
+$progress-bg: $gray-100;
+
+// Tables
+
+$table-bg-accent: $gray-100;
+$table-bg-hover: $gray-100;
+
+// Forms
+
+$input-group-addon-bg: $gray-100;
+$input-border-color: $gray-200;
+$input-group-addon-border-color: $gray-200;
+
+$zindex-dropdown: 1025 !default;
+$zindex-sticky: 1009 !default;

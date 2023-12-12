@@ -9,12 +9,14 @@ import { PopupService } from './services/popup/popup.service';
 import { MapComponent } from './components/Map/map.component';
 import { MarkerService } from './services/marker/marker.service';
 import { ProgressCircleComponent } from './components/progress-circle/progress-circle.component';
+import { CardInformationComponent } from './components/card-component/card-information.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     ProgressCircleComponent,
+    CardInformationComponent
   ],
   imports: [
     BrowserModule,
