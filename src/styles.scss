@@ -1,0 +1,29 @@
+.leaflet-tooltip-custom {
+  background-color: rgba(255, 255, 255, 0);
+  max-width: 30px;
+}
+
+.leaflet-tooltip {
+  max-width: 30px;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.leaflet-tooltip-left:before {
+  display: none;
+  right: 0;
+  margin-right: -12px;
+  border-left-color: rgb(27, 69, 255);
+}
+
+.leaflet-tooltip-right:before {
+  display: none;
+  left: 0;
+  margin-left: -12px;
+  border-right-color: rgb(27, 69, 255);
+}
+
+body {
+  overflow: hidden;
+}

@@ -1,0 +1,20 @@
+<svg [attr.height]="svgHeight" [attr.width]="svgWidth" viewBox="0 0 20 20" #svgComponent>
+  <circle r="10" cx="10" cy="10" fill="white" />
+  
+  <circle r="5" cx="10" cy="10" fill="transparent"
+          stroke="tomato"
+          stroke-width="10"
+          [attr.stroke-dasharray]="strokeDashArray"
+          transform="rotate(-90) translate(-20)"
+          id="filler"
+  />
+
+  <text
+    id="texto"
+    x="10"
+    y="10"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-size="6"
+  >{{percentage}}</text>
+</svg>

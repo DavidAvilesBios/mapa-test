@@ -12,6 +12,7 @@ export class CardInformationComponent implements OnInit, OnChanges {
   //Layout
   public showCarousel: boolean;
   public imageIndex: number;
+  public currentDate: Date = new Date();
 
   //Gallery
   public responsiveOptions: any[];

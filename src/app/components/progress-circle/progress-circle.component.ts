@@ -33,7 +33,6 @@ export class ProgressCircleComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const mapElement = this.elRef.nativeElement.querySelector('#meter');
-    const progressBarElement = this.elRef.nativeElement.querySelector('#progressBar');
 
     let length = mapElement.getTotalLength();
     let value = this.percentage;

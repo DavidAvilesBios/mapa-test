@@ -1,84 +1,88 @@
 <ng-container *ngIf="properties">
-  <div class="container content-map p-0 max-popup">
-    <ng-scrollbar style="height: 570px" [visibility]="'hover'">
+  <div class="container content-map p-1 max-popup h-200 scrollable">
+    <ng-scrollbar style="height: 100px" [visibility]="'hover'">
       <div class="row">
         <div class="col-12">
-          <div class="row">
-            <div class="col-xs-12 col-md-8">
-              <dl>
-                <dt>Nombre</dt>
-                <dd class="contrato">{{ properties?.nombreoficial }}</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Porcentaje de llenado respecto al NAMO</dt>
-                <dd class="avance">{{ properties?.llenano }}%</dd>
-              </dl>
+          <div class="row m-2">
+            <div class="col-12 text-center">
+              <dt>{{ properties?.nombreoficial }}</dt>
+              <dd>{{ properties?.nombrecomun }}</dd>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-8">
-              <dl>
-                <dt>Monto total</dt>
-                <dd class="monto">{{ properties?.montoInversion | currency }} MXN</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Nivel de aguas maximas ordinario NAMO</dt>
-                <dd>Elevación {{ properties?.nameelev }} msnm</dd>
-                <dd>Almacenamiento {{ properties?.namealmac }} msnm</dd>
-              </dl>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-8">
-              <dl>
-                <dt>Objeto</dt>
-                <dd>{{ properties?.objeto }}</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Nivel de aguas maximas extraordinarias NAMO</dt>
-                <dd>Elevación: {{ properties?.namoelev }}</dd>
-                <dd>Almacenamiento: {{ properties?.namoalmac }}</dd>
-              </dl>
+            <div class="col-12">
+              <dt class="header">Situación Actual</dt>
+              <dd>
+                <b>Fecha:</b>
+                {{ currentDate | date }}
+              </dd>
+              <dd>
+                <b>Elevación:</b>
+                {{properties?.nameelev | number: '.3-3'}}msnm
+              </dd>
+              <dd>
+                <b>Almacenamiento:</b>
+                {{properties?.namealmac | number: '.3-3'}}hm³
+              </dd>
+              <dd>
+                <b>Porcentaje de llenado respecto al NAMO:</b>
+                {{properties?.llenano | percent: '.3-3'}}
+              </dd>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-8">
-              <dl>
-                <dt>Contratista</dt>
-                <dd>{{ properties?.descripcionContratista }}</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Altura Cortina</dt>
-                <dd>{{ properties?.alturacortina}}</dd>
-              </dl>
+            <div class="col-12">
+              <dt class="header">Características de la presa</dt>
+              <dd>
+                <b>Niveles de aguas máximas ordinarias(NAMO)</b>
+                <br>
+                <ul>
+                  <li>Elevación: {{properties?.namoelev | number: '.3-3'}}msnm</li>
+                  <li>Almacenamiento: {{properties?.namoalmac | number: '.3-3'}}hm³</li>
+                </ul>
+              </dd>
+              <dd>
+                <b>Niveles de aguas máximas extraordinarias(NAME)</b>
+                <br>
+                <ul>
+                  <li>
+                    <dd>Elevación: {{ properties?.nameelev | number: '.3-3' }} msnm</dd>
+                  </li>
+                  <li>
+                    <dd>Almacenamiento {{ properties?.namealmac | number: '.3-3' }}hm³</dd>
+                  </li>
+                </ul>
+              </dd>
+              <dd>
+                <b>Uso:</b>
+                {{ properties?.uso }}
+              </dd>
+              <dd>
+                <b>Tipo de vertedor:</b> {{ properties?.tipovertedor }}
+              </dd>
+              <dd>
+                <b>Fecha de inicio de operación:</b> {{ properties?.inicioop }}
+              </dd>
+              <dd>
+                <b>Bordo libre:</b> {{ properties?.bordolibre | number: '.3-3' }} m
+              </dd>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Organismo</dt>
-                <dd>{{ properties?.descripcionDependencia }}</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Tipo de Contrato</dt>
-                <dd>{{ properties?.descripcionTipoContrato }}</dd>
-              </dl>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <dl>
-                <dt>Elevación de la cortina</dt>
-                <dd>{{ properties?.elevacionactual }}</dd>
-              </dl>
+            <div class="col-12">
+              <dt class="header">Ubicación</dt>
+              <dd>
+                <b>Corriente donde se ubica:</b> {{ properties?.corriente }}
+              </dd>
+              <dd>
+                <b>Municipio:</b> {{ properties?.nommunicipio }}
+              </dd>
+              <dd>
+                <b>Entidad federativa:</b> {{ properties?.estado }}
+              </dd>
+              <dd>
+                <b>Región administrativa:</b> {{ properties?.regioncna }}
+              </dd>
             </div>
           </div>
         </div>
