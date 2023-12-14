@@ -18,7 +18,7 @@ export class PieChartComponent implements OnInit {
   constructor(private elRef: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    
   }
 
   setPercentage(newPercentage: any): void {

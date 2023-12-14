@@ -19,7 +19,6 @@ export class ProgressCircleComponent implements OnInit, OnChanges {
   constructor(private elRef: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   setPercentage(newPercentage: any): void {

@@ -17,6 +17,9 @@
         <i class="fa-solid fa-water" [ngClass]="{ 'wb-active': isPresasActive }"></i>
     </button>
 </div>
+<div id="select-container">
+    <app-municipios-select (toggleMunicipio)="handleMunicipioClick($event)"></app-municipios-select>
+</div>
 
 <div *ngFor="let progressComponent of progressComponents">
     <app-progress-circle [percentage]="progressComponent.percentage" [hidden]="true"></app-progress-circle>

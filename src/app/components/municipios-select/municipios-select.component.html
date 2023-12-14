@@ -1,0 +1,65 @@
+<div id="select-container">
+  <div class="mainContainer" *ngIf="!esMunicipioActivo">
+    <button (click)="handleButtonClick()" class="dropdown-button">
+      <span class="buttonText">Seleccione un municipio</span>
+      <i [ngClass]="iconClass" id="button-icon"></i>
+    </button>
+    <div *ngIf="isButtonActive" class="position-relative municipiosItems">
+      <div *ngFor="let municipio of municipios" (click)="manejarMunicipioClick(municipio.id)">
+        {{municipio.nombre}}
+      </div>
+    </div>
+  </div>
+  <div class="mainContainer" *ngIf="esMunicipioActivo">
+    <button class="dropdown-button">
+      <i class="fa-solid fa-arrow-left" id="backClimaButton" (click)="manejarBotonClimaClick()"></i>
+      <span>Clima Actual</span>
+    </button>
+    <div *ngIf="esMunicipioActivo" id="municipioWeather">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 fs-1 mt-2 mb-2 fw-bold">AHOME</div>
+        </div>
+        <div class="row">
+          <div class="col-12 header">Información</div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-8 container">
+            <div class="col-12 fs-1">28°C</div>
+            <div class="row">
+              <div class="col-6">Max: 28°</div>
+              <div class="col-6">Min: 18°</div>
+            </div>
+          </div>
+          <div class="col-4 text-start fs-1 align-self-center">
+            <i class="fa-solid fa-cloud-sun"></i>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <i class="fa-solid fa-wind"></i>
+          </div>
+          <div class="col-8">
+            7.52 km/h
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <i class="fa-solid fa-cloud"></i>
+          </div>
+          <div class="col-8">
+            24.99%
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="col-8">
+            0 mm
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

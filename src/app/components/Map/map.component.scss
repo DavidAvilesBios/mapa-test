@@ -73,6 +73,15 @@
   }
 }
 
+#select-container {
+  width: 80%;
+  position:absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 400;
+  max-width: 350px;
+}
+
 ::ng-deep .custom-popup {
   width: 400px !important;
 }

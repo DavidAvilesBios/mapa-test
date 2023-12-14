@@ -180,6 +180,14 @@ export class MapComponent implements OnInit {
     this.isPresasActive = !this.isPresasActive;
   }
 
+  handleMunicipioClick(idMunicipio: number) {
+    if(idMunicipio > 0) {
+      this.mapasService.addMunicipioLayer(this.map, idMunicipio);
+    } else {
+      this.mapasService.removeMunicipioLayer(this.map);
+    }
+  }
+
   private toggleMunicipiosLayer() {
     if (this.isMunicipiosActive) {
       this.map.removeLayer(this.municipiosLayer);
