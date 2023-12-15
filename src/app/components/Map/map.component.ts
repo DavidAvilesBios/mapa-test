@@ -1,10 +1,9 @@
-import { Component, OnInit, NgZone, ViewChild, ComponentFactoryResolver, ChangeDetectorRef, ElementRef, ApplicationRef, Injector } from '@angular/core';
+import { Component, OnInit, NgZone, ComponentFactoryResolver, ChangeDetectorRef, ElementRef, ApplicationRef, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-openweathermap';
+import * as dayjs from 'dayjs'
 
 import { ShapeService } from 'src/app/services/shape/shape.service';
-import { PopupService } from 'src/app/services/popup/popup.service';
-import { MarkerService } from 'src/app/services/marker/marker.service';
 import { ShapeDefaultFormat } from 'src/app/environment/styles/global-styles';
 
 import { ProgressCircleComponent } from '../progress-circle/progress-circle.component';
@@ -13,6 +12,7 @@ import { CardInformationComponent } from '../card-component/card-information.com
 
 import { arregloEstados } from 'src/assets/data/estados';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
+import { CloudLayer } from 'src/app/types/CloudLayer';
 
 @Component({
   selector: 'app-map',
@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
   public cloudsLayer: L.Layer;
   public RainsLayer: L.Layer;
   public windLayer: L.Layer;
+  public capaNubesActivas: L.Layer;
   public map: L.Map;
 
   public progressComponents: ProgressCircleComponent[] = [];
@@ -33,12 +34,15 @@ export class MapComponent implements OnInit {
   private presasLayer: L.LayerGroup = L.layerGroup();
   private municipiosData: any;
   private culiacanCoordinates: [number, number] = [24.7994, -107.3879];
+  private arregloTiempoUnix: CloudLayer[] = [];
+  private APP_ID: string = 'beebbcb80ce2f079e73c30c198d013fe';
 
   public isCloudsActive = false;
   public isMunicipiosActive = false;
   public isPresasActive = false;
   public isRainActive = false;
   public isWindActive = false;
+  public esNubesActivo: boolean = false;
 
   constructor(
     private ngZone: NgZone,
@@ -67,11 +71,8 @@ export class MapComponent implements OnInit {
 
       }
       setTimeout(() => {
-        /*for (let progressComponent of this.progressComponents) {
-          this.agregarMarcadorConPopup(progressComponent);
-        }*/
 
-        for(let pieChartComponent of this.pieChartComponents) {
+        for (let pieChartComponent of this.pieChartComponents) {
           this.agregarMarcadorConPopup(pieChartComponent);
         }
       }, 1000);
@@ -137,7 +138,7 @@ export class MapComponent implements OnInit {
     this.map = L.map('map', {
       zoomControl: false,
       attributionControl: false,
-    }).setView(this.culiacanCoordinates, 6);
+    }).setView(this.culiacanCoordinates, 8);
 
     const tiles: any = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -153,6 +154,7 @@ export class MapComponent implements OnInit {
     this.map.setMaxBounds(maxBounds);
 
     this.getMunicipios();
+    this.crearArregloDeTiemposUnix();
   }
 
   handleMunicipiosButtonClick() {
@@ -161,8 +163,11 @@ export class MapComponent implements OnInit {
   }
 
   handleCloudsButtonClick() {
-    this.toggleCloudsLayer();
-    this.isCloudsActive = !this.isCloudsActive;
+    this.esNubesActivo = !this.esNubesActivo;
+    this.alternaCapaDeNubesActiva();
+
+    //this.toggleCloudsLayer();
+    //this.isCloudsActive = !this.isCloudsActive;
   }
 
   handleRainButtonClick() {
@@ -181,7 +186,7 @@ export class MapComponent implements OnInit {
   }
 
   handleMunicipioClick(idMunicipio: number) {
-    if(idMunicipio > 0) {
+    if (idMunicipio > 0) {
       this.mapasService.addMunicipioLayer(this.map, idMunicipio);
     } else {
       this.mapasService.removeMunicipioLayer(this.map);
@@ -216,6 +221,15 @@ export class MapComponent implements OnInit {
         appId: '05ee994525263678a5f1e95438fe9735',
         opacity: 0.8
       }).addTo(this.map);
+    }
+  }
+
+  public alternaCapaDeNubesActiva() {
+    if (this.esNubesActivo) {
+      this.actualizaCapaNubes(this.arregloTiempoUnix[0]);
+    } else {
+      this.map.removeLayer(this.capaNubesActivas);
+      this.capaNubesActivas = null;
     }
   }
 
@@ -255,6 +269,39 @@ export class MapComponent implements OnInit {
     this.municipiosLayer = L.geoJSON(this.municipiosData, {
       style: (feature) => (ShapeDefaultFormat)
     });
+  }
+
+  private actualizaCapaNubes(tiempoUnixParam?: CloudLayer) {
+    if (this.esNubesActivo) {
+
+      const { tiempoUnix, capaMapa } = tiempoUnixParam;
+
+      if(this.capaNubesActivas) {
+        this.map.removeLayer(this.capaNubesActivas);
+      }
+
+      this.capaNubesActivas = capaMapa;
+      this.map.addLayer(this.capaNubesActivas);
+
+      const unixIndex = this.arregloTiempoUnix.findIndex((tiempo) => tiempo == tiempoUnixParam);
+      if(unixIndex == this.arregloTiempoUnix.length - 1) {
+        setTimeout(() => {
+          this.actualizaCapaNubes(this.arregloTiempoUnix[0]);
+        }, 3500);
+      } else {
+        setTimeout(() => {
+          this.actualizaCapaNubes(this.arregloTiempoUnix[ unixIndex + 1 ]);
+        }, 3500)
+      }
+    }
+  }
+
+  private crearArregloDeTiemposUnix() {
+    for (let i = 27; i >= 0; i -= 3) {
+      const tiempoUnix = dayjs().subtract(i, 'hours').unix();
+      const capaMapa = L.tileLayer(`http://maps.openweathermap.org/maps/2.0/weather/CL/{z}/{x}/{y}?date=${tiempoUnix}&opacity=1&fill_bound=true&appid=${this.APP_ID}`);
+      this.arregloTiempoUnix.push({tiempoUnix, capaMapa});
+    }
   }
 
 }
