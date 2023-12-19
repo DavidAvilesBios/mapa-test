@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { municipios } from './data';
+import { MapasService } from '../services/mapas.service';
+import { ClimaMunicipio, PronosticoDia } from '../services/typings';
 
 @Component({
   selector: 'app-municipios-select',
@@ -14,10 +16,21 @@ export class MunicipiosSelectComponent implements OnInit {
   public isButtonActive: boolean = false;
   public municipios = municipios;
   public esMunicipioActivo: boolean = false;
+  public municipioClima: ClimaMunicipio;
+  public pronosticosClima: PronosticoDia[];
 
-  constructor() { }
+  constructor(
+    private _mapasService: MapasService
+  ) { }
 
   ngOnInit(): void {
+    this._mapasService.climaMunicipio$.subscribe((value: ClimaMunicipio) => {
+      this.municipioClima = value;
+    });
+
+    this._mapasService.pronosticosMunicipio$.subscribe((value: any) => {
+      this.pronosticosClima = value;
+    });
   }
 
   handleButtonClick() {

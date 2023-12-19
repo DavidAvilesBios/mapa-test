@@ -50,7 +50,7 @@ export const municipios: Municipio[] = [{
   nombre: "San Ignacio"
 },{
   id: 17,
-  nombre: "Sinaloa"
+  nombre: "Sinaloa de leyva"
 },{
   id: 18,
   nombre: "Navolato"

@@ -15,24 +15,25 @@
       <i class="fa-solid fa-arrow-left" id="backClimaButton" (click)="manejarBotonClimaClick()"></i>
       <span>Clima Actual</span>
     </button>
-    <div *ngIf="esMunicipioActivo" id="municipioWeather">
+    <div *ngIf="!!municipioClima.id" id="municipioWeather">
       <div class="container">
         <div class="row">
-          <div class="col-12 fs-1 mt-2 mb-2 fw-bold">AHOME</div>
+          <div class="col-12 fs-1 mt-2 fw-bold">{{municipioClima?.name}}</div>
+          <div class="col-12">{{ municipioClima.weather[0].description.toUpperCase() }}</div>
         </div>
         <div class="row">
           <div class="col-12 header">Información</div>
         </div>
         <div class="row mt-2">
           <div class="col-8 container">
-            <div class="col-12 fs-1">28°C</div>
+            <div class="col-12 fs-1">{{ municipioClima.main?.temp | number: '.0-0' }}°C</div>
             <div class="row">
-              <div class="col-6">Max: 28°</div>
-              <div class="col-6">Min: 18°</div>
+              <div class="col-6">Max: {{ municipioClima.main?.temp_max | number: '.0-0' }}°</div>
+              <div class="col-6">Min: {{ municipioClima.main?.temp_min | number: '.0-0' }}°</div>
             </div>
           </div>
           <div class="col-4 text-start fs-1 align-self-center">
-            <i class="fa-solid fa-cloud-sun"></i>
+            <img [src]="municipioClima.icono"/>
           </div>
         </div>
         <div class="row mt-2">
@@ -40,7 +41,7 @@
             <i class="fa-solid fa-wind"></i>
           </div>
           <div class="col-8">
-            7.52 km/h
+            {{ (municipioClima?.wind?.speed * 3600) / 1000 | number: '.0-2' }} km/h
           </div>
         </div>
         <div class="row mt-2">
@@ -48,7 +49,7 @@
             <i class="fa-solid fa-cloud"></i>
           </div>
           <div class="col-8">
-            24.99%
+            {{ municipioClima?.clouds.all }}%
           </div>
         </div>
         <div class="row mt-2">
@@ -57,6 +58,44 @@
           </div>
           <div class="col-8">
             0 mm
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 header">Pronóstico</div>
+        </div>
+        <div class="row justify-content-end col-12">
+          Max - Min
+        </div>
+        <div class="row mt-2 align-items-center pronostico_item" *ngFor="let dia of pronosticosClima">
+          <div class="col-4">
+            {{dia.dt_full}}
+          </div>
+          <div class="col-4">
+            <img [src]="dia.weather[0].icon"/>
+          </div>
+          <div class="col-4">
+            {{ dia.temp.max | number: '.0-0' }}° - {{ dia.temp.min | number: '.0-0' }}°
+          </div>
+          <div class="pronostico_card container">
+            <div class="row">
+              <p class="col-12">
+                {{ dia.weather[0].description }}
+              </p>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <b>Viento:</b><br>
+                {{ dia.speed }}km/h
+              </div>
+              <div class="col-12">
+                <b>Nubosidad:</b><br>
+                {{ dia.clouds }}%
+              </div>
+              <div class="col-12">
+                <b>Precipitación:</b><br>
+                {{ dia.pop }}mm
+              </div>
+            </div>
           </div>
         </div>
       </div>

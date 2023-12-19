@@ -55,3 +55,37 @@
   color: white;
   line-height: 2em;
 }
+
+.pronostico_card {
+  position: absolute;
+  background-color: #636363;
+  color: white;
+  right: 105%;
+  width: 50%;
+  visibility: hidden;
+
+  ::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -10px;
+    /* Half of the border-width to center the triangle vertically */
+    border-width: 10px;
+    /* Set the size of your triangle */
+    border-style: solid;
+    border-color: transparent transparent transparent #434343;
+    /* Set the color of your triangle */
+  }
+}
+
+.pronostico_item {
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.pronostico_item:hover>.pronostico_card {
+  visibility: visible;
+}

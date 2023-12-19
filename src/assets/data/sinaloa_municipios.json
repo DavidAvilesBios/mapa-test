@@ -6,7 +6,11 @@
             "properties": {
                 "id": 10,
                 "name": "EL FUERTE",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 26.4155546,
+                    "lon": -108.6172584
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -949,7 +953,11 @@
             "properties": {
                 "id": 1,
                 "name": "AHOME",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.9177891,
+                    "lon": -109.1704277
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -4456,7 +4464,11 @@
             "properties": {
                 "id": 3,
                 "name": "BADIRAGUATO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.3641023,
+                    "lon": -107.55168
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -7335,7 +7347,11 @@
             "properties": {
                 "id": 15,
                 "name": "SALVADOR ALVARADO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.4575492,
+                    "lon": -108.0755437
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -8106,7 +8122,11 @@
             "properties": {
                 "id": 6,
                 "name": "CULIACAN",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 24.7978965,
+                    "lon": -107.393395
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -12385,7 +12405,11 @@
             "properties": {
                 "id": 18,
                 "name": "NAVOLATO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 24.7633,
+                    "lon": -107.6979734
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -14428,7 +14452,11 @@
             "properties": {
                 "id": 5,
                 "name": "COSALA",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 24.4126863,
+                    "lon": -106.69127
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -14891,7 +14919,11 @@
             "properties": {
                 "id": 8,
                 "name": "ELOTA",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 23.9217282,
+                    "lon": -106.89264
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -15582,7 +15614,11 @@
             "properties": {
                 "id": 4,
                 "name": "CONCORDIA",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 23.287735,
+                    "lon": -106.0652728
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -16345,7 +16381,11 @@
             "properties": {
                 "id": 9,
                 "name": "ESCUINAPA",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 22.8337989,
+                    "lon": -105.778322
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -17052,7 +17092,11 @@
             "properties": {
                 "id": 7,
                 "name": "CHOIX",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 26.7089186,
+                    "lon": -108.325282
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -18102,8 +18146,12 @@
             "type": "Feature",
             "properties": {
                 "id": 17,
-                "name": "SINALOA",
-                "description": null
+                "name": "SINALOA DE LEYVA",
+                "description": null,
+                "coordinates": {
+                    "lat": 25.8228671,
+                    "lon": -108.223201
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -19198,7 +19246,11 @@
             "properties": {
                 "id": 11,
                 "name": "GUASAVE",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.5738,
+                    "lon": -108.4674697
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -20545,7 +20597,11 @@
             "properties": {
                 "id": 13,
                 "name": "MOCORITO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.4801609,
+                    "lon": -107.920046
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -21668,7 +21724,11 @@
             "properties": {
                 "id": 2,
                 "name": "ANGOSTURA",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 25.3657471,
+                    "lon": -108.16152
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -22791,7 +22851,11 @@
             "properties": {
                 "id": 16,
                 "name": "SAN IGNACIO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 23.7234262,
+                    "lon": -106.778751
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -23818,7 +23882,11 @@
             "properties": {
                 "id": 12,
                 "name": "MAZATLAN",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 23.2035785,
+                    "lon": -106.4208391
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -25049,7 +25117,11 @@
             "properties": {
                 "id": 14,
                 "name": "ROSARIO",
-                "description": null
+                "description": null,
+                "coordinates": {
+                    "lat": 22.9920525,
+                    "lon": -105.8572752
+                }
             },
             "geometry": {
                 "type": "Polygon",

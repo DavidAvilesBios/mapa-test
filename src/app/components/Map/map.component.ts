@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
   private municipiosData: any;
   private culiacanCoordinates: [number, number] = [24.7994, -107.3879];
   private arregloTiempoUnix: CloudLayer[] = [];
-  private APP_ID: string = 'beebbcb80ce2f079e73c30c198d013fe';
+  private APP_ID: string = 'OPEN_WEATHER_API_KEY';
 
   public isCloudsActive = false;
   public isMunicipiosActive = false;
