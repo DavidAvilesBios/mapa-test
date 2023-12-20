@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as L from 'leaflet';
 import * as dayjs from 'dayjs'
-require('dayjs/locale/es');
 
 import { ProgressCircleComponent } from '../progress-circle/progress-circle.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
@@ -91,7 +90,8 @@ export class MapasService {
       const municipioDeseado = featureCollection.features.find((municipio) => municipio.properties.id == idMunicipio);
 
       if(municipioDeseado) {
-        this.obtenerMunicipioClima(municipioDeseado.properties.coordinates, municipioDeseado.properties.name);
+        const { coordinates, name } = municipioDeseado.properties;
+        this.obtenerMunicipioClima(coordinates, name);
         this.removeLayerFromMap(map, this.municipioLayer);
         this.municipioShape = municipioDeseado;
         this.municipioLayer = L.geoJSON(this.municipioShape, {
@@ -99,6 +99,7 @@ export class MapasService {
         });
 
         map.addLayer(this.municipioLayer);
+        map.setView(coordinates, 9);
       }
     });
   }

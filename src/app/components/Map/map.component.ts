@@ -27,6 +27,11 @@ export class MapComponent implements OnInit {
   public capaNubesActivas: L.Layer;
   public map: L.Map;
 
+  private frameCount = 5;
+  private startSeconds = -54000;
+  private endSeconds = 0;
+  private intervalID;
+
   public progressComponents: ProgressCircleComponent[] = [];
   public pieChartComponents: PieChartComponent[] = [];
 
@@ -34,7 +39,7 @@ export class MapComponent implements OnInit {
   private presasLayer: L.LayerGroup = L.layerGroup();
   private municipiosData: any;
   private culiacanCoordinates: [number, number] = [24.7994, -107.3879];
-  private arregloTiempoUnix: CloudLayer[] = [];
+  private nubesFrames: L.Layer[] = [];
   private APP_ID: string = 'OPEN_WEATHER_API_KEY';
 
   public isCloudsActive = false;
@@ -138,7 +143,7 @@ export class MapComponent implements OnInit {
     this.map = L.map('map', {
       zoomControl: false,
       attributionControl: false,
-    }).setView(this.culiacanCoordinates, 8);
+    }).setView(this.culiacanCoordinates, 6);
 
     const tiles: any = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -165,9 +170,6 @@ export class MapComponent implements OnInit {
   handleCloudsButtonClick() {
     this.esNubesActivo = !this.esNubesActivo;
     this.alternaCapaDeNubesActiva();
-
-    //this.toggleCloudsLayer();
-    //this.isCloudsActive = !this.isCloudsActive;
   }
 
   handleRainButtonClick() {
@@ -225,12 +227,7 @@ export class MapComponent implements OnInit {
   }
 
   public alternaCapaDeNubesActiva() {
-    if (this.esNubesActivo) {
-      this.actualizaCapaNubes(this.arregloTiempoUnix[0]);
-    } else {
-      this.map.removeLayer(this.capaNubesActivas);
-      this.capaNubesActivas = null;
-    }
+    this.iniciarNubes();
   }
 
 
@@ -271,37 +268,61 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private actualizaCapaNubes(tiempoUnixParam?: CloudLayer) {
-    if (this.esNubesActivo) {
+  private crearArregloDeTiemposUnix() {
 
-      const { tiempoUnix, capaMapa } = tiempoUnixParam;
-
-      if(this.capaNubesActivas) {
-        this.map.removeLayer(this.capaNubesActivas);
-      }
-
-      this.capaNubesActivas = capaMapa;
-      this.map.addLayer(this.capaNubesActivas);
-
-      const unixIndex = this.arregloTiempoUnix.findIndex((tiempo) => tiempo == tiempoUnixParam);
-      if(unixIndex == this.arregloTiempoUnix.length - 1) {
-        setTimeout(() => {
-          this.actualizaCapaNubes(this.arregloTiempoUnix[0]);
-        }, 3500);
-      } else {
-        setTimeout(() => {
-          this.actualizaCapaNubes(this.arregloTiempoUnix[ unixIndex + 1 ]);
-        }, 3500)
-      }
+    for (let i = 0; i < this.frameCount; i += 1) {
+      const tile = this.getTileServer(i, 0).addTo(this.map);
+      this.nubesFrames.push(tile);
     }
   }
 
-  private crearArregloDeTiemposUnix() {
-    for (let i = 27; i >= 0; i -= 3) {
-      const tiempoUnix = dayjs().subtract(i, 'hours').unix();
-      const capaMapa = L.tileLayer(`http://maps.openweathermap.org/maps/2.0/weather/CL/{z}/{x}/{y}?date=${tiempoUnix}&opacity=1&fill_bound=true&appid=${this.APP_ID}`);
-      this.arregloTiempoUnix.push({tiempoUnix, capaMapa});
+  private getTileServer(stepNumber, opacity = 0): L.Layer {
+    const interval = (this.endSeconds - this.startSeconds) / this.frameCount;
+    const timeOffset = this.startSeconds + interval * stepNumber;
+    const offset = dayjs().subtract(timeOffset, 'seconds').unix();
+    const AERIS_ID = "";
+    const AERIS_KEY = "";
+    const imgQuality = this.map.getZoom() > 5 ? '256' : '32';
+    const aerisURL = `https://maps1.aerisapi.com/${AERIS_ID}_${AERIS_KEY}/satellite/{z}/{x}/{y}/${timeOffset}min.png${imgQuality}`;
+    const openweatherURL = `http://maps.openweathermap.org/maps/2.0/weather/CL/{z}/{x}/{y}?date=${offset}&fill_bound=true&opacity=1&appid=${this.APP_ID}`
+
+    return L.tileLayer(openweatherURL, {
+      opacity: opacity
+    });
+  }
+
+  private iniciarNubes() {
+    const waitTime = 1000;
+
+    const stepTime = 1500;
+
+    let currentOffset = 0;
+    let previousOffset = currentOffset;
+
+    if (this.esNubesActivo) {
+      setTimeout(() => {
+        this.intervalID = setInterval(() => {
+          previousOffset = currentOffset;
+          currentOffset++;
+          if (currentOffset === this.nubesFrames.length - 1) {
+            currentOffset = 0;
+          }
+          this.nubesFrames[previousOffset].setOpacity(0)
+          this.nubesFrames[currentOffset].setOpacity(1)
+
+        }, stepTime);
+      }, waitTime)
+    } else {
+      this.detieneAnimacionNubes();
     }
+  }
+
+  private detieneAnimacionNubes() {
+    clearInterval(this.intervalID);
+
+    this.nubesFrames.forEach((frame) => {
+      frame.setOpacity(0);
+    });
   }
 
 }
