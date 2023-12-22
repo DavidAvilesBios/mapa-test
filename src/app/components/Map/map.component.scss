@@ -48,6 +48,10 @@
         font-size: 1em;
       }
 
+      @media only screen and (max-width: 150px) {
+        font-size: 0.8em;
+      }
+
       
     }
   }

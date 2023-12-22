@@ -14,8 +14,9 @@
     <button class="dropdown-button">
       <i class="fa-solid fa-arrow-left" id="backClimaButton" (click)="manejarBotonClimaClick()"></i>
       <span>Clima Actual</span>
+      <i [ngClass]="iconClass" id="button-icon" (click)="handleButtonClick()"></i>
     </button>
-    <div *ngIf="!!municipioClima.id" id="municipioWeather">
+    <div *ngIf="!!municipioClima.id && isButtonActive" id="municipioWeather">
       <div class="container">
         <div class="row">
           <div class="col-12 fs-1 mt-2 fw-bold">{{municipioClima?.name}}</div>

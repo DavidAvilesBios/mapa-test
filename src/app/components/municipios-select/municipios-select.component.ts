@@ -39,14 +39,12 @@ export class MunicipiosSelectComponent implements OnInit {
 
   manejarMunicipioClick(idMunicipio: number) {
     this.toggleMunicipio.emit(idMunicipio);
-    this.toggleEsBotonActivo();
     this.toggleEsMunicipioActivo();
   }
 
   manejarBotonClimaClick() {
     this.toggleMunicipio.emit(0);
     this.toggleEsMunicipioActivo();
-    this.toggleEsBotonActivo();
   }
 
   toggleEsMunicipioActivo() {
@@ -58,7 +56,7 @@ export class MunicipiosSelectComponent implements OnInit {
   }
 
   private toggleDropdown() {
-    this.isButtonActive = !this.isButtonActive;
+    this.toggleEsBotonActivo();
     this.iconClass = this.isButtonActive ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-up';
   }
 

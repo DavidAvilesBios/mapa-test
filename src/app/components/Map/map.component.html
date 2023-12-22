@@ -1,19 +1,19 @@
 <div id="map">
 </div>
 <div id="weatherButtonsContainer" class="">
-    <button (click)="handleMunicipiosButtonClick()" class="floating">
+    <button (click)="handleMunicipiosButtonClick()" class="container text-center">
         <i class="fa-solid fa-earth-americas" [ngClass]="{ 'wb-active': isMunicipiosActive }"></i>
     </button>
-    <button (click)="handleCloudsButtonClick()">
+    <button (click)="handleCloudsButtonClick()" class="container text-center">
         <i class="fa-solid fa-cloud .wb-active" [ngClass]="{'wb-active': esNubesActivo}"></i>
     </button>
-    <button (click)="handleRainButtonClick()">
+    <button (click)="handleRainButtonClick()" class="container text-center">
         <i class="fa-solid fa-cloud-showers-heavy" [ngClass]="{ 'wb-active': isRainActive }"></i>
     </button>
-    <button (click)="handleWindButtonClick()">
+    <button (click)="handleWindButtonClick()" class="container text-center">
         <i class="fa-solid fa-wind" [ngClass]="{ 'wb-active': isWindActive }"></i>
     </button>
-    <button (click)="handlePresasButtonClick()">
+    <button (click)="handlePresasButtonClick()" class="container text-center">
         <i class="fa-solid fa-water" [ngClass]="{ 'wb-active': isPresasActive }"></i>
     </button>
 </div>

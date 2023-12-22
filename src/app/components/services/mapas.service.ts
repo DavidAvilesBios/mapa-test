@@ -2,7 +2,8 @@ import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector } from '
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as L from 'leaflet';
-import * as dayjs from 'dayjs'
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
 import { ProgressCircleComponent } from '../progress-circle/progress-circle.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
